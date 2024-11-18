@@ -1,8 +1,5 @@
-# try now, again, again
-
 name: Snyk Container
-
-on: 'push'
+on: push
 
 jobs:
   snyk:
@@ -10,27 +7,37 @@ jobs:
       actions: read
       contents: read
       security-events: write
+    
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@v3
-    - name: Build a Docker image
-      run: docker build -t your/image-to-test .
-    - name: Run Snyk to check Docker image for vulnerabilities
-      continue-on-error: true
-      uses: snyk/actions/docker@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        image: your/image-to-test
-        args: --file=Dockerfile --sarif-file-output=snyk.sarif
-    - name: Fix SARIF severity values
-      if: always()
-      run: |
-        if [ -f "snyk.sarif" ]; then
-          jq '(.runs[].tool.driver.rules[].properties."security-severity") |= (if . == null then "5.0" else . end)' snyk.sarif > fixed.sarif
-          mv fixed.sarif snyk.sarif
-        fi
-    - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: snyk.sarif
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build a Docker image
+        run: docker build -t your/image-to-test .
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        continue-on-error: true
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: your/image-to-test
+          args: --file=Dockerfile --sarif-file-output=snyk.sarif
+
+      # Agregar este paso para corregir las severidades nulas
+      - name: Fix SARIF severity values
+        if: always()
+        run: |
+          if [ -f "snyk.sarif" ]; then
+            jq '(.runs[].tool.driver.rules[].properties."security-severity") |= (if . == null then "5.0" else . end)' snyk.sarif > fixed.sarif
+            mv fixed.sarif snyk.sarif
+          fi
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: snyk.sarif
+          category: Snyk Container
