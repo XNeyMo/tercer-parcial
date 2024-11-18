@@ -24,20 +24,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: your/image-to-test
-          args: --file=Dockerfile --sarif-file-output=snyk.sarif
-
-      # Agregar este paso para corregir las severidades nulas
-      - name: Fix SARIF severity values
-        if: always()
-        run: |
-          if [ -f "snyk.sarif" ]; then
-            jq '(.runs[].tool.driver.rules[].properties."security-severity") |= (if . == null then "5.0" else . end)' snyk.sarif > fixed.sarif
-            mv fixed.sarif snyk.sarif
-          fi
+          args: --file=Dockerfile
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
-        if: always()
         with:
           sarif_file: snyk.sarif
-          category: Snyk Container
