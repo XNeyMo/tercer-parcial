@@ -21,8 +21,11 @@ jobs:
       with:
         image: your/image-to-test
         args: --file=Dockerfile
-    - name: Showing SARIF file
-      run: cat snyk.sarif
+    - name: Subir SARIF como artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: snyk-sarif
+        path: snyk.sarif
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
       with:
