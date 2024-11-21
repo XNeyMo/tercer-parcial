@@ -4,8 +4,11 @@ FROM node:20.18.1
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+RUN ls -la /usr/src/app
+
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package.json ./
+COPY package-lock.json ./
 
 # Install app dependencies
 RUN npm install
