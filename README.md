@@ -4,6 +4,7 @@
 
 - Neyan Manuel Montes Abad (T00064020)
 - Michael Andrés Taboada Naranjo (T00064965)
+- Carlos Mario Guzmán Zúñiga (T00065185)
 
 ## Introducción
 
@@ -17,7 +18,7 @@ Para poder llevar a cabo esta practica, logicamente necesitamos tener una cuenta
 
 ### Paso 2: Crear un repositorio en GitHub
 
-Cabe aclarar que para realizar esto, debemos crear un repositorio que tenga visibilidad publica, ya que de lo contrario, el [Workflow]() encargado de los procesos dentro de los repositorios de GitHub no podrá realizar el analisis de vulnerabilidades, algo de lo que nos percatamos posteriormente ya que el [Code Scanning]() de GitHub solo puede ser gestionado en repositorios publicos o de [Organizaciones]().
+Cabe aclarar que para realizar esto, debemos crear un repositorio que tenga visibilidad publica, ya que de lo contrario, el [Workflow](https://docs.github.com/en/actions/writing-workflows/about-workflows) encargado de los procesos dentro de los repositorios de GitHub no podrá realizar el analisis de vulnerabilidades, algo de lo que nos percatamos posteriormente ya que el [Code Scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning) de GitHub solo puede ser gestionado en repositorios publicos o de [Organizaciones](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations).
 
 ![Actions](assets/image1.png)
 
