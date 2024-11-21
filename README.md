@@ -2,8 +2,8 @@
 
 ## Integrantes
 
-Neyan Manuel Montes Abad - T00064020
-Michael Andrés Taboada Naranjo - T00064965
+- Neyan Manuel Montes Abad (T00064020)
+- Michael Andrés Taboada Naranjo (T00064965)
 
 ## Introducción
 
